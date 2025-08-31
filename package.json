@@ -5,7 +5,8 @@
   "description": "A monorepo for the Developer Accelerator Kit kata.",
   "scripts": {
     "dev:components": "npm run dev --workspace=@c4/components",
-    "generate:component": "ts-node packages/cli/src/index.ts"
+    "generate:component": "ts-node packages/cli/src/index.ts",
+    "build:components": "npm run build --workspace=@c4/components"
   },
   "keywords": [],
   "workspaces": [

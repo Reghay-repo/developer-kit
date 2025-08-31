@@ -13,7 +13,8 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
-    "allowImportingTsExtensions": true
+     "noEmit": true,
+    "allowImportingTsExtensions": true,
   },
   "include": ["src"]
 }
