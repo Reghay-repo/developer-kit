@@ -123,9 +123,19 @@ All components are designed to be easily themed from the outside by overriding t
   --c4-card-box-shadow: 0 8px 16px rgba(0,0,0,0.12); /* Add a more pronounced shadow */
 }
 ```
+## CLI Tooling
 
+This commit introduces the `@c4/cli` package, a Node.js-based command-line tool to automate component creation.
+
+The script uses `@inquirer/prompts` to interactively ask the developer for a component name, and then performs the following actions:
+- Validates the name against the design system's naming conventions.
+- Creates a new directory for the component in `packages/components/src`.
+- Generates the boilerplate `.ts` and `index.ts` files using templates.
+- Automatically updates the main `index.ts` of the component library to export the new component.
+
+This tool significantly improves the developer experience (DX) by reducing manual setup, preventing errors, and enforcing consistent code structure, directly supporting the "Software Factory" mission of accelerating development.
 ## Next Steps
 
 - [x] **Phase 1: Foundation & Setup**
 - [x] **Phase 2: Core Component Development** (Build `C4-Button` and `C4-Card`)
-- [ ] **Phase 3: CLI Tooling** (Develop the Node.js scaffolding script)
+- [x] **Phase 3: CLI Tooling** (Develop the Node.js scaffolding script)
