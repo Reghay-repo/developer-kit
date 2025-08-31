@@ -66,6 +66,16 @@ To get the component library development server running:
     ```
     This will start the Vite development server for the `@c4/components` package.
 
+## Production Build
+
+The `@c4/components` package is configured for a production build. This process "industrializes" the library, making it a robust, distributable asset ready for publishing to a package registry.
+
+The build is orchestrated by **Vite** and includes the `vite-plugin-dts` plugin to ensure reliability. It generates:
+
+*   **ESM and UMD JavaScript bundles** for maximum compatibility.
+*   **Integrated Type Declarations:** The build process automatically generates TypeScript declaration files (`.d.ts`) for every component, ensuring full type-safety and auto-completion for developers using the library.
+
+---
 ## Components (`@c4/components`)
 
 The core of the accelerator kit is a library of framework-agnostic, accessible, and themeable Web Components.
