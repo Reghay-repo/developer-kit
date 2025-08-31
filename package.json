@@ -1,0 +1,15 @@
+{
+  "name": "developer-accelerator-kit",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "A monorepo for the Developer Accelerator Kit kata.",
+  "scripts": {
+    "dev:components": "npm run dev --workspace=@c4/components"
+  },
+  "keywords": [],
+  "workspaces": [
+    "packages/*"
+  ],
+  "private": true,
+  "license": "ISC"
+}
