@@ -12,7 +12,8 @@
     "skipLibCheck": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "allowImportingTsExtensions": true
   },
   "include": ["src"]
 }

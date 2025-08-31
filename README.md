@@ -66,8 +66,66 @@ To get the component library development server running:
     ```
     This will start the Vite development server for the `@c4/components` package.
 
+## Components (`@c4/components`)
+
+The core of the accelerator kit is a library of framework-agnostic, accessible, and themeable Web Components.
+
+### `<c4-button>`
+
+A versatile button component with support for multiple visual variants and a disabled state. It is built on top of the native `<button>` element to ensure full accessibility.
+
+**Usage Example:**
+```html
+<!-- Primary Button -->
+<c4-button>Click Me</c4-button>
+
+<!-- Secondary Button -->
+<c4-button variant="secondary">Learn More</c4-button>
+
+<!-- Disabled Button -->
+<c4-button disabled>Cannot Click</c4-button>
+```
+
+### `<c4-card>`
+A flexible content container designed to be composed using slots. It supports multiple content patterns, including an optional image header.
+
+**Usage Example:**
+```html
+<!-- Card with an image passed via property -->
+<c4-card image-url="/path/to/image.jpg">
+  <h3 slot="title">Card Title</h3>
+  <p>This is the main body content for the card.</p>
+</c4-card>
+
+<!-- Card with a complex element passed into the 'image' slot -->
+<c4-card>
+  <picture slot="image">
+    <source srcset="..." media="(max-width: 600px)">
+    <img src="..." alt="Description">
+  </picture>
+  <h3 slot="title">Another Title</h3>
+  <p>More content here.</p>
+</c4-card>
+```
+
+### Theming
+
+All components are designed to be easily themed from the outside by overriding their CSS Custom Properties. This allows teams to adapt the components to their specific product's look and feel without changing the component's code.
+
+**Example:**
+```css
+/* in your application's global stylesheet */
+:root {
+  --c4-button-primary-bg-color: #ff6f61; /* Change the primary button color */
+  --c4-button-border-radius: 99px;    /* Create pill-shaped buttons */
+  
+  --c4-card-border-radius: 16px;      /* Give cards a larger radius */
+  --c4-card-box-shadow: 0 8px 16px rgba(0,0,0,0.12); /* Add a more pronounced shadow */
+}
+```
+
 ## Next Steps
 
 - [x] **Phase 1: Foundation & Setup**
-- [ ] **Phase 2: Core Component Development** (Build `C4-Button` and `C4-Card`)
+- [x] **Phase 2: Core Component Development** (Build `C4-Button` and `C4-Card`)
 - [ ] **Phase 3: CLI Tooling** (Develop the Node.js scaffolding script)

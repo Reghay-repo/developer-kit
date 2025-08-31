@@ -1,5 +1,5 @@
 {
-  "name": "components",
+ "name": "@c4/components",
   "version": "1.0.0",
   "main": "./dist/dev-accelerator-kit.umd.js",
   "module": "./dist/dev-accelerator-kit.es.js",

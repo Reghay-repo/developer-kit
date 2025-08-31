@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Component Library Demo</title>
+    <script type="module" src="/src/index.ts"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 2rem;
+        }
+
+        /* Example of theming the button */
+        :root {
+            --c4-button-primary-bg-color: #ff6f61;
+            --c4-button-primary-bg-hover-color: #d95a50;
+            --c4-button-border-radius: 99px; /* Pill-shaped buttons */
+        }
+
+        c4-button {
+            margin: 0.5rem;
+        }
+
+        .card-demo-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+    </style>
+</head>
+<body>
+<h1>C4-Button Component</h1>
+
+<h2>Variants</h2>
+<c4-button>Primary Button</c4-button>
+<c4-button variant="secondary">Secondary Button</c4-button>
+
+<h2>Disabled State</h2>
+<c4-button disabled>Disabled Primary</c4-button>
+<c4-button variant="secondary" disabled>Disabled Secondary</c4-button>
+<hr>
+<h2>C4-Card Component</h2>
+
+<div class="card-demo-container">
+    <!-- Card 1: Using imageUrl property and slots -->
+    <c4-card image-url="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg">
+        <h3 slot="title">Fjallraven - Foldsack No. 1</h3>
+        <p>Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded
+            sleeve, your everyday</p>
+    </c4-card>
+    <!-- Card 2: Using the 'image' slot for a picture element -->
+    <c4-card>
+        <picture slot="image">
+            <img src="https://images.macrumors.com/t/LOfu9VLk4WvjtKmnQtzdS67Rr3w=/800x0/smart/article-new/2016/05/iphone8gold.jpg?lossy" alt="iPhone">
+        </picture>
+        <h3 slot="title">iPhone 9</h3>
+        <p>An apple mobile which is nothing like apple. This is the main body content, which goes into the default
+            slot.</p>
+    </c4-card>
+</div>
+
+</body>
+</html>
