@@ -133,6 +133,12 @@ All components are designed to be easily themed from the outside by overriding t
   --c4-card-box-shadow: 0 8px 16px rgba(0,0,0,0.12); /* Add a more pronounced shadow */
 }
 ```
+
+
+**Theming:**
+All components are designed to be themed from the outside by overriding their CSS Custom Properties. This allows teams to adapt the components to their specific product's look and feel without changing the component's code.
+
+An interactive **theming demo** is available to showcase this feature. It includes a light/dark mode switcher that demonstrates how the components instantly adapt. After starting the dev server, you can view it at `/theme-demo.html`.
 ## CLI Tooling
 
 This commit introduces the `@c4/cli` package, a Node.js-based command-line tool to automate component creation.
@@ -149,3 +155,6 @@ This tool significantly improves the developer experience (DX) by reducing manua
 - [x] **Phase 1: Foundation & Setup**
 - [x] **Phase 2: Core Component Development** (Build `C4-Button` and `C4-Card`)
 - [x] **Phase 3: CLI Tooling** (Develop the Node.js scaffolding script)
+- [x] **Bonus: Production Readiness**
+- [x] **Bonus: Theming Demo**
+- [ ] **Bonus: AI Integration, Advanced Scaffolding...**

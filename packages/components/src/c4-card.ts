@@ -32,6 +32,7 @@ export class C4Card extends LitElement {
             --c4-card-border-radius: 8px;
             --c4-card-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             --c4-card-border: 1px solid #ddd;
+            //--c4-card-slotted-title-color:#000;
         }
 
         .card {
@@ -60,7 +61,7 @@ export class C4Card extends LitElement {
             font-size: 1.25rem;
             font-weight: 600;
             margin: 0 0 0.5rem 0;
-            color: #333;
+           color: var(--c4-card-slotted-title-color, #333);
         }
     `;
 
