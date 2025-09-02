@@ -34,15 +34,11 @@
             margin: auto;
         }
 
-        /* --- THEME DEFINITIONS --- */
 
-        /* 1. Default Light Theme */
         :root {
-            /* Page colors */
             --page-bg: #ffffff;
             --page-text: #212529;
 
-            /* C4-Button variables */
             --c4-button-primary-bg-color: #007bff;
             --c4-button-primary-text-color: #ffffff;
             --c4-button-primary-bg-hover-color: #0056b3;
@@ -50,18 +46,14 @@
             --c4-button-secondary-border-color: #007bff;
             --c4-button-secondary-bg-hover-color: #e7f1ff;
 
-            /* C4-Card variables */
             --c4-card-border: 1px solid #e0e0e0;
             --c4-card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
-        /* 2. Dark Theme Overrides */
         body.dark-theme {
-            /* Page colors */
             --page-bg: #121212;
             --page-text: #e0e0e0;
 
-            /* C4-Button variables */
             --c4-button-primary-bg-color: #bb86fc;
             --c4-button-primary-text-color: #121212;
             --c4-button-primary-bg-hover-color: #a764fc;
@@ -69,12 +61,9 @@
             --c4-button-secondary-border-color: #bb86fc;
             --c4-button-secondary-bg-hover-color: #332244;
 
-            /* C4-Card variables */
             --c4-card-border: 1px solid #444;
             --c4-card-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 
-            /* We also need to override the default text styles inside the card from ::slotted */
-            /* This is a great demonstration of a more complex theming requirement */
             --c4-card-slotted-title-color: #f1f1f1;
         }
     </style>

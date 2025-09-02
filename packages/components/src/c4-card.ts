@@ -39,7 +39,7 @@ export class C4Card extends LitElement {
             border: var(--c4-card-border);
             border-radius: var(--c4-card-border-radius);
             box-shadow: var(--c4-card-box-shadow);
-            overflow: hidden; /* Ensures image corners are rounded */
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -55,7 +55,6 @@ export class C4Card extends LitElement {
             padding: var(--c4-card-padding);
         }
 
-        /* Styling content that is PASSED INTO the component */
 
         ::slotted([slot='title']) {
             font-size: 1.25rem;

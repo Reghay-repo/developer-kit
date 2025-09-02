@@ -10,7 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@inquirer/prompts": "^7.8.4"
+    "@inquirer/prompts": "^7.8.4",
+    "dotenv": "^17.2.1"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",

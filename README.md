@@ -141,15 +141,29 @@ All components are designed to be themed from the outside by overriding their CS
 An interactive **theming demo** is available to showcase this feature. It includes a light/dark mode switcher that demonstrates how the components instantly adapt. After starting the dev server, you can view it at `/theme-demo.html`.
 ## CLI Tooling
 
-This commit introduces the `@c4/cli` package, a Node.js-based command-line tool to automate component creation.
 
-The script uses `@inquirer/prompts` to interactively ask the developer for a component name, and then performs the following actions:
-- Validates the name against the design system's naming conventions.
-- Creates a new directory for the component in `packages/components/src`.
-- Generates the boilerplate `.ts` and `index.ts` files using templates.
-- Automatically updates the main `index.ts` of the component library to export the new component.
+### `@c4/cli`
 
+A Node.js CLI tool to automate common development tasks and enforce standards.
+
+**Features:**
+*   **Component Scaffolding:** Interactively generates the boilerplate for a new component, including the component file, an index for the component, and updates to the main library entry point.
+*   **AI-Powered Documentation (PoC):** When enabled during scaffolding, the script calls the Google Gemini API to generate a professional JSDoc comment block for the new component, providing a head start on documentation.
 This tool significantly improves the developer experience (DX) by reducing manual setup, preventing errors, and enforcing consistent code structure, directly supporting the "Software Factory" mission of accelerating development.
+    
+#### **AI Feature Setup**
+
+To use the AI documentation feature, you must provide a Google Gemini API key.
+
+1.  Create a file named `.env` in the `packages/cli/` directory.
+2.  Add your API key to this file:
+    ```
+    GEMINI_API_KEY=YOUR_API_KEY_HERE
+    ```
+3.  The `.gitignore` file is already configured to keep this file from being committed.
+
+---
+    
 ## Next Steps
 
 - [x] **Phase 1: Foundation & Setup**

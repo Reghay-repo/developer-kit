@@ -45,8 +45,8 @@ export class C4Button extends LitElement {
     static styles = css`
         :host {
             display: inline-block;
-            /* Primary default values */
 
+            /* Primary default values */
             --c4-button-primary-bg-color: #007bff;
             --c4-button-primary-text-color: #ffffff;
             --c4-button-primary-bg-hover-color: #0056b3;

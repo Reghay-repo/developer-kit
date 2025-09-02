@@ -1,15 +1,20 @@
-import { input } from '@inquirer/prompts';
+import {input, confirm} from '@inquirer/prompts';
 import path from 'path';
 import fs from 'fs/promises';
 import {toPascalCase} from "./helpers/to-pascale";
+import {generateDocs} from "./helpers/generate-docs";
 
+import dotenv from 'dotenv';
 
-
-// --- Template definitions (no changes here) ---
-const getComponentTemplate = (className: string, tagName: string) => `
+dotenv.config({path: path.resolve(__dirname, '../.env')});
+const getComponentTemplate = (className: string, tagName: string, aiDocs: string = '') => `
 import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+
+
+
+${aiDocs ? `\n${aiDocs}` : ''}
 @customElement('${tagName}')
 export class ${className} extends LitElement {
   static styles = css\`
@@ -30,68 +35,78 @@ const getIndexTemplate = (tagName: string) => `
 export * from './${tagName}';
 `;
 
-// --- Main script logic (updated) ---
 async function main() {
-  console.log('⚡ Welcome to the C4 Component Generator! ⚡');
-
-  const tagName = await input({
-    message: 'What is the tag name of the new component? (e.g., c4-alert)',
-    validate: (value: string) => {
-      if (!value.startsWith('c4-')) {
-        return 'Component name must start with "c4-"';
-      }
-      if (/[^a-z0-9-]/.test(value)) {
-        return 'Component name can only contain lowercase letters, numbers, and hyphens.';
-      }
-      return true;
-    },
-  });
-
-  const className = toPascalCase(tagName);
 
 
-  const monorepoRoot = path.join(__dirname, '..', '..', '..');
-  const componentDir = path.join(
-    monorepoRoot,
-    'packages',
-    'components',
-    'src',
-    tagName
-  );
 
-  try {
-    // 1. Create the component directory
-    await fs.mkdir(componentDir);
+    const withAiDocs = await confirm({
+        message: 'Generate AI-powered documentation for this component? (PoC Feature)',
+        default: true,
+    });
+    const tagName = await input({
+        message: 'What is the tag name of the new component? (e.g., c4-alert)',
+        validate: (value: string) => {
+            if (!value.startsWith('c4-')) {
+                return 'Component name must start with "c4-"';
+            }
+            if (/[^a-z0-9-]/.test(value)) {
+                return 'Component name can only contain lowercase letters, numbers, and hyphens.';
+            }
+            return true;
+        },
+    });
 
-    // 2. Create the files
-    await Promise.all([
-      fs.writeFile(
-        path.join(componentDir, `${tagName}.ts`),
-        getComponentTemplate(className, tagName)
-      ),
-      fs.writeFile(
-        path.join(componentDir, `index.ts`),
-        getIndexTemplate(tagName)
-      ),
-    ]);
+    let aiDocsContent: string | undefined = '';
+    const className = toPascalCase(tagName);
 
-    // 3. Update the main index.ts
-    const mainIndexPath = path.join(
-      monorepoRoot,
-      'packages',
-      'components',
-      'src',
-      'index.ts'
+    if (withAiDocs) {
+        if (!process.env.GEMINI_API_KEY) {
+            console.warn('⚠️ WARNING: GEMINI_API_KEY not found ' +
+                'in .env file. Skipping AI documentation.');
+        } else {
+            aiDocsContent = await generateDocs(className, tagName,);
+        }
+    }
+
+
+    const monorepoRoot = path.join(__dirname, '..', '..', '..');
+    const componentDir = path.join(
+        monorepoRoot,
+        'packages',
+        'components',
+        'src',
+        tagName
     );
-    await fs.appendFile(mainIndexPath, `\nexport * from './${tagName}';`);
 
-    console.log(`\n✅ Success! Created ${className} at 'packages/components/src/${tagName}'`);
-    console.log('Updated the main library entry point to include your new component.');
+    try {
+        await fs.mkdir(componentDir);
 
-  } catch (error) {
-    console.error('❌ Oh no! An error occurred:', error);
-  }
+        await Promise.all([
+            fs.writeFile(
+                path.join(componentDir, `${tagName}.ts`),
+                getComponentTemplate(className, tagName, aiDocsContent)
+            ),
+            fs.writeFile(
+                path.join(componentDir, `index.ts`),
+                getIndexTemplate(tagName)
+            ),
+        ]);
+
+        const mainIndexPath = path.join(
+            monorepoRoot,
+            'packages',
+            'components',
+            'src',
+            'index.ts'
+        );
+        await fs.appendFile(mainIndexPath, `\nexport * from './${tagName}';`);
+
+        console.log(`\n✅ Success! Created ${className} at 'packages/components/src/${tagName}'`);
+        console.log('Updated the main library entry point to include your new component.');
+
+    } catch (error) {
+        console.error('❌ Oh no! An error occurred:', error);
+    }
 }
 
-// Run the main function
-main();
+void main();

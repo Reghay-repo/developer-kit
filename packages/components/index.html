@@ -11,11 +11,10 @@
             padding: 2rem;
         }
 
-        /* Example of theming the button */
         :root {
             --c4-button-primary-bg-color: #ff6f61;
             --c4-button-primary-bg-hover-color: #d95a50;
-            --c4-button-border-radius: 99px; /* Pill-shaped buttons */
+            --c4-button-border-radius: 99px;
         }
 
         c4-button {
@@ -43,13 +42,11 @@
 <h2>C4-Card Component</h2>
 
 <div class="card-demo-container">
-    <!-- Card 1: Using imageUrl property and slots -->
     <c4-card image-url="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg">
         <h3 slot="title">Fjallraven - Foldsack No. 1</h3>
         <p>Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded
             sleeve, your everyday</p>
     </c4-card>
-    <!-- Card 2: Using the 'image' slot for a picture element -->
     <c4-card>
         <picture slot="image">
             <img src="https://images.macrumors.com/t/LOfu9VLk4WvjtKmnQtzdS67Rr3w=/800x0/smart/article-new/2016/05/iphone8gold.jpg?lossy" alt="iPhone">

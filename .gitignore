@@ -13,6 +13,11 @@ coverage/
 .vscode/
 *.iml
 
+
+# Environment variables
+.env
+packages/cli/.env
+
 # Log files
 npm-debug.log*
 yarn-debug.log*
