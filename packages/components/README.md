@@ -18,7 +18,7 @@ To use the components, you must first import the library in your application's m
 
 ```javascript
 // In your main.js or main.ts
-import '@oussama-reghay/components';
+import '@osmrgh/components';
 ```
 
 After this, you can use the component tags anywhere in your HTML or templates.
@@ -76,7 +76,8 @@ A flexible content container using slots.
 <c4-card image-url="/path/to/image.jpg">
   <h3 slot="title">Card Title</h3>
   <p>This is the main body content for the card.</p>
-</c4-card>```
+</c4-card>
+```
 
 ---
 
@@ -85,6 +86,7 @@ A flexible content container using slots.
 All components can be styled from your global CSS by overriding the provided CSS Custom Properties.
 
 **Example:**
+
 ```css
 :root {
   --c4-button-primary-bg-color: #ff6f61;
@@ -92,3 +94,5 @@ All components can be styled from your global CSS by overriding the provided CSS
   --c4-card-border-radius: 16px;
 }
 ```
+
+
