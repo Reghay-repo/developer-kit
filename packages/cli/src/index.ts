@@ -1,87 +1,63 @@
-import {input, confirm} from '@inquirer/prompts';
+
+import { select } from '@inquirer/prompts';
 import path from 'path';
 import fs from 'fs/promises';
-import {toPascalCase} from "./helpers/to-pascale";
-import {generateDocs} from "./helpers/generate-docs";
-
 import dotenv from 'dotenv';
+import { toPascalCase } from "./helpers/to-pascale";
+import { generateDocs } from "./helpers/generate-docs";
+import { getReactWrapperTemplate, getVueWrapperTemplate } from './helpers/get-wrapper-templates';
+import { getIndexTemplate } from "./helpers/get-index-template";
+import { withAiDocs } from "./helpers/with-ai-docs";
+import { selectedTagName } from "./helpers/input-tag-name";
+import {getComponentTemplate} from "./helpers/get-component-template";
 
-dotenv.config({path: path.resolve(__dirname, '../.env')});
-const getComponentTemplate = (className: string, tagName: string, aiDocs: string = '') => `
-import { LitElement, html, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 
-
-
-${aiDocs ? `\n${aiDocs}` : ''}
-@customElement('${tagName}')
-export class ${className} extends LitElement {
-  static styles = css\`
-    :host {
-      display: block;
-    }
-  \`;
-
-  render() {
-    return html\`
-      <div>Hello from ${className}!</div>
-    \`;
-  }
-}
-`;
-
-const getIndexTemplate = (tagName: string) => `
-export * from './${tagName}';
-`;
 
 async function main() {
+    console.log('⚡ Welcome to the C4 Component Generator! ⚡');
 
+    const monorepoRoot = path.join(__dirname, '..', '..', '..');
+    const componentsPackageJsonPath = path.join(monorepoRoot, 'packages', 'components', 'package.json');
+    const packageJsonContent = await fs.readFile(componentsPackageJsonPath, 'utf-8');
+    const { name: componentPackageName } = JSON.parse(packageJsonContent);
 
+    if (!componentPackageName) {
+        throw new Error('Could not find "name" in packages/components/package.json');
+    }
+    console.log(`✅ Detected component package name: ${componentPackageName}`);
 
-    const withAiDocs = await confirm({
-        message: 'Generate AI-powered documentation for this component? (PoC Feature)',
-        default: true,
+    const tagName = await selectedTagName();
+    const wrapperType = await select({
+        message: 'Generate a framework-specific wrapper? (Optional)',
+        choices: [
+            { name: 'None (Web Component only)', value: 'none' },
+            { name: 'React (.tsx)', value: 'react' },
+            { name: 'Vue (.vue)', value: 'vue' },
+        ]
     });
-    const tagName = await input({
-        message: 'What is the tag name of the new component? (e.g., c4-alert)',
-        validate: (value: string) => {
-            if (!value.startsWith('c4-')) {
-                return 'Component name must start with "c4-"';
-            }
-            if (/[^a-z0-9-]/.test(value)) {
-                return 'Component name can only contain lowercase letters, numbers, and hyphens.';
-            }
-            return true;
-        },
-    });
+    const isAiDocsSelected = await withAiDocs();
 
-    let aiDocsContent: string | undefined = '';
+
     const className = toPascalCase(tagName);
+    let aiDocsContent: string | undefined = '';
 
-    if (withAiDocs) {
+    if (isAiDocsSelected) {
         if (!process.env.GEMINI_API_KEY) {
-            console.warn('⚠️ WARNING: GEMINI_API_KEY not found ' +
-                'in .env file. Skipping AI documentation.');
+            console.warn('⚠️ WARNING: GEMINI_API_KEY not found. Skipping AI documentation.');
         } else {
-            aiDocsContent = await generateDocs(className, tagName,);
+            aiDocsContent = await generateDocs(className, tagName);
         }
     }
 
 
-    const monorepoRoot = path.join(__dirname, '..', '..', '..');
-    const componentDir = path.join(
-        monorepoRoot,
-        'packages',
-        'components',
-        'src',
-        tagName
-    );
+    const componentDir = path.join(monorepoRoot, 'packages', 'components', 'src', tagName);
 
     try {
         await fs.mkdir(componentDir);
 
-        await Promise.all([
+        const writePromises: Promise<void>[] = [
             fs.writeFile(
                 path.join(componentDir, `${tagName}.ts`),
                 getComponentTemplate(className, tagName, aiDocsContent)
@@ -90,23 +66,35 @@ async function main() {
                 path.join(componentDir, `index.ts`),
                 getIndexTemplate(tagName)
             ),
-        ]);
+        ];
 
-        const mainIndexPath = path.join(
-            monorepoRoot,
-            'packages',
-            'components',
-            'src',
-            'index.ts'
-        );
+        if (wrapperType === 'react') {
+            const wrapperContent = getReactWrapperTemplate(className, tagName, componentPackageName);
+            writePromises.push(fs.writeFile(path.join(componentDir, `${className}.tsx`), wrapperContent));
+        } else if (wrapperType === 'vue') {
+            const wrapperContent = getVueWrapperTemplate(className, tagName, componentPackageName);
+            writePromises.push(fs.writeFile(path.join(componentDir, `${className}.vue`), wrapperContent));
+        }
+
+        await Promise.all(writePromises);
+
+        const mainIndexPath = path.join(monorepoRoot, 'packages', 'components', 'src', 'index.ts');
         await fs.appendFile(mainIndexPath, `\nexport * from './${tagName}';`);
 
         console.log(`\n✅ Success! Created ${className} at 'packages/components/src/${tagName}'`);
-        console.log('Updated the main library entry point to include your new component.');
+        if (wrapperType !== 'none') {
+            console.log(`📄 ${wrapperType.charAt(0).toUpperCase() + wrapperType.slice(1)} wrapper component was also created.`);
+        }
+        if (aiDocsContent) {
+            console.log('🤖 AI documentation was successfully added.');
+        }
 
     } catch (error) {
-        console.error('❌ Oh no! An error occurred:', error);
+        console.error('❌ Oh no! An error occurred during file operations:', error);
     }
 }
 
-void main();
+main().catch(error => {
+    console.error('A fatal error occurred:', error.message);
+    process.exit(1);
+});

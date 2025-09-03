@@ -63,7 +63,6 @@ A flexible content container designed to be composed using slots. It supports mu
 
 The foundational architecture of the project is now complete. This includes the project structure, tooling, and core technology choices.
 
-
 ## Theming
 
 All components are designed to be easily themed from the outside by overriding their CSS Custom Properties. This allows teams to adapt the components to their specific product's look and feel without changing the component's code.
@@ -92,6 +91,7 @@ A Node.js CLI tool to automate common development tasks and enforce standards.
 
 **Features:**
 *   **Component Scaffolding:** Interactively generates the boilerplate for a new component, including the component file, an index for the component, and updates to the main library entry point.
+*  **Framework Wrappers:** Optionally generates thin wrapper components for **React (.tsx)** and **Vue (.vue)**. These wrappers provide a more native developer experience by handling prop passing and type inference, making it seamless to integrate the Web Components into a framework-specific project.
 *   **AI-Powered Documentation (PoC):** When enabled during scaffolding, the script calls the Google Gemini API to generate a professional JSDoc comment block for the new component, providing a head start on documentation.
 This tool significantly improves the developer experience (DX) by reducing manual setup, preventing errors, and enforcing consistent code structure, directly supporting the "Software Factory" mission of accelerating development.
     
@@ -107,7 +107,6 @@ To use the AI documentation feature, you must provide a Google Gemini API key.
 3.  The `.gitignore` file is already configured to keep this file from being committed.
 
 ---
-
 
 ## Getting Started
 
@@ -132,7 +131,6 @@ To get the component library development server running:
     npm run dev:components
     ```
     This will start the Vite development server for the `@c4/components` package.
-
 
 ## Architecture and Tooling
 
@@ -234,8 +232,8 @@ The process would be:
 
  
 This automated process removes human error and ensures that releases are predictable, well-documented, and safe.
----
 
+---
 
     
 ## Next Steps
@@ -247,3 +245,4 @@ This automated process removes human error and ensures that releases are predict
 - [x] **Bonus: Theming Demo**
 - [x] **Bonus: AI Integration, Advanced Scaffolding...**
 - [x] **Bonus: Versioning Strategy Documentation**
+- [] **Final Step: Publishing to npm**
