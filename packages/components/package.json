@@ -14,7 +14,8 @@
   }
  },
  "files": [
-  "dist"
+  "dist",
+  "README.md"
  ],
  "description": "Core UI component library for Carrefour",
  "scripts": {
