@@ -1,5 +1,8 @@
 {
- "name": "@c4/components",
+ "name": "@osmrgh/components",
+ "publishConfig": {
+    "access": "public"
+  },
  "main": "./dist/c4-components.umd.js",
  "module": "./dist/c4-components.es.js",
  "private": false,
@@ -19,7 +22,7 @@
   "build": "vite build"
  },
  "keywords": [],
- "author": "",
+ "author": "osmrgh",
  "license": "ISC",
  "dependencies": {
   "lit": "^3.3.1"
