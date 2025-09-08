@@ -115,7 +115,7 @@ To get the component library development server running:
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/username/developer-accelerator-kit.git
+    git clone https://github.com/Reghay-repo/developer-kit
     cd developer-accelerator-kit
     ```
 
@@ -153,7 +153,7 @@ This project is a **monorepo** managed by npm workspaces. This structure allows 
 developer-accelerator-kit/
 ├── packages/
 │   ├── components/  # The framework-agnostic UI component library (@c4/components)
-│   └── cli/         # (Future) The Node.js CLI for automation and scaffolding
+│   └── cli/         #  The Node.js CLI for automation and scaffolding
 ├── README.md
 └── package.json
 ```
@@ -217,26 +217,37 @@ refactor(button): rename 'variant' prop to 'appearance'
 BREAKING CHANGE: The `variant` property on c4-button has been deprecated and renamed to `appearance` to better align with our design language.
 ```
 
-### Automated Release Workflow
+[//]: # (### Automated Release Workflow)
 
-This strategy enables a fully automated release workflow using a tool like `semantic-release` in a CI/CD pipeline (e.g., GitLab CI, GitHub Actions).
+[//]: # ()
+[//]: # (This strategy enables a fully automated release workflow using a tool like `semantic-release` in a CI/CD pipeline &#40;e.g., GitLab CI, GitHub Actions&#41;.)
 
-The process would be:
-1.  A developer merges a feature branch into `main`.
-2.  The CI/CD pipeline triggers, running all tests.
-3.  If tests pass, the `semantic-release` tool analyzes the new commit messages since the last release.
-4.  It automatically determines the next version number (e.g., `1.2.0` -> `1.3.0` if a `feat` commit is found).
-5.  It generates a new `CHANGELOG.md` entry based on the commit messages.
-6.  It creates a new Git tag with the new version number.
-7.  Finally, it publishes the new version of the `@c4/components` package to the internal npm registry.
+[//]: # ()
+[//]: # (The process would be:)
 
- 
-This automated process removes human error and ensures that releases are predictable, well-documented, and safe.
+[//]: # (1.  A developer merges a feature branch into `main`.)
 
----
+[//]: # (2.  The CI/CD pipeline triggers, running all tests.)
+
+[//]: # (3.  If tests pass, the `semantic-release` tool analyzes the new commit messages since the last release.)
+
+[//]: # (4.  It automatically determines the next version number &#40;e.g., `1.2.0` -> `1.3.0` if a `feat` commit is found&#41;.)
+
+[//]: # (5.  It generates a new `CHANGELOG.md` entry based on the commit messages.)
+
+[//]: # (6.  It creates a new Git tag with the new version number.)
+
+[//]: # (7.  Finally, it publishes the new version of the `@c4/components` package to the internal npm registry.)
+
+[//]: # ()
+[//]: # ( )
+[//]: # (This automated process removes human error and ensures that releases are predictable, well-documented, and safe.)
+
+[//]: # ()
+[//]: # (---)
 
     
-## Next Steps
+##  Steps
 
 - [x] **Phase 1: Foundation & Setup**
 - [x] **Phase 2: Core Component Development** (Build `C4-Button` and `C4-Card`)
@@ -244,5 +255,6 @@ This automated process removes human error and ensures that releases are predict
 - [x] **Bonus: Production Readiness**
 - [x] **Bonus: Theming Demo**
 - [x] **Bonus: AI Integration, Advanced Scaffolding...**
-- [x] **Bonus: Versioning Strategy Documentation**
 - [x] **Final Step: Publishing to npm**
+
+[//]: # (- [x] **Bonus: Versioning Strategy Documentation**)
