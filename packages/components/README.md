@@ -2,7 +2,7 @@
 
 A set of framework-agnostic, themeable, and accessible Web Components for the Carrefour Design System, built with Lit.
 
-This package is part of the "Developer Accelerator Kit" project. For information on the full project, including the CLI tooling, please visit the [main project repository](https://github.com/your-username/developer-accelerator-kit).
+This package is part of the "Developer Accelerator Kit" project. For information on the full project, including the CLI tooling, please visit the [main project repository](https://github.com/Reghay-repo/developer-kit).
 
 ---
 

@@ -6,7 +6,7 @@
  "main": "./dist/c4-components.umd.js",
  "module": "./dist/c4-components.es.js",
  "private": false,
- "version": "0.1.1",
+ "version": "0.1.2",
  "exports": {
   ".": {
    "import": "./dist/c4-components.es.js",
